@@ -1,0 +1,12 @@
+    <script type="text/javascript">  
+    //escape()不能直接用于URL编码，它的真正作用是返回一个字符的Unicode编码值。比如"春节"的返回结果是%u6625%u8282，escape()不对"+"编码 主要用于汉字编码。  
+    alert(escape("春节"));  
+    alert(unescape(escape("春节")));  
+    //encodeURI()是用来对URL编码的函数。 编码整个url地址，但对特殊含义的符号"; / ? : @ & = + $ , #"不进行编码。对应的解码函数是：decodeURI()。  
+    alert(encodeURI('http://baidu.com?hello=您好&word=文档'));  
+    alert(decodeURI(encodeURI('http://baidu.com?hello=您好&word=文档')));  
+    //encodeURIComponent() 能编码"; / ? : @ & = + $ , #"这些特殊字符。对应的解码函数是decodeURIComponent()。  
+    alert(encodeURIComponent('http://baidu.com?hello=您好&word=文档'));  
+    alert(decodeURIComponent(encodeURIComponent('http://baidu.com?hello=您好&word=文档')));  
+       
+    </script>  

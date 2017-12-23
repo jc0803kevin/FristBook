@@ -1,0 +1,45 @@
+
+本地目录E:\softInstall\redis
+文件介绍：
+
+redis-benchmark.exe #基准测试
+
+redis-check-aof.exe # aof
+
+redischeck-dump.exe # dump
+
+redis-cli.exe # 客户端
+
+redis-server.exe # 服务器
+
+redis.windows.conf # 配置文件
+
+2、启动Redis
+windows 运行（快捷键：按住shift + 鼠标右键），选择在此处打开命令窗口，进入cmd操作系统窗口。
+
+使用命令【redis-server.exe redis.windows.conf】，启动redis 服务。
+
+服务启动成功状态
+
+3、测试使用
+
+新打开一个doc窗口，用自带的客户端工具进行测试 命令【redis-cli.exe】,详细操作如下。。
+
+4,将redis加到Windows服务中。首先还是要启动redis服务器端，然后在运行redis客户端，然后通过Windows的service-install命令，
+输入：
+【redis-server --service-install redis.windows.conf --loglevel verbose 】
+
+以后就可以使用win的服务启动，而不需要每次都要打开一个DOS界面启动了。
+
+
+
+
+
+
+
+
+
+
+
+
+

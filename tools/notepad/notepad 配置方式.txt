@@ -1,0 +1,18 @@
+
+
+notepad++ 向前 向后 前进 后退 插件 LocationNav
+
+notepad++ 中怎样让光标回到前一个位置
+
+
+快捷键  和vs 一样的
+
+
+LocationNavigate 这个插件可以实现 像vs中一样 向前 向后的 功能
+
+下载地址
+
+http://sourceforge.net/projects/locationnav/files/
+
+
+http://www.yxl8.net/htmlVer2/news/detail.asp?id=1538

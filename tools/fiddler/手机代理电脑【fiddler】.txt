@@ -1,0 +1,17 @@
+
+利用fidder工具通过手机代理电脑进行访问
+
+前提：
+1.启动fiddler工具，设置代理参考【http://blog.csdn.net/torrytang/article/details/49820499】
+
+2.保证手机和电脑在同一网络里面
+
+3.对手机的WiFi进行设置为手动代理，服务器为电脑的ip【比如：192.168.199.134】端口号为【8888】
+
+然后就可以进行访问了。在手机浏览器输入，
+
+http://localhost:8080/sdk/d3api/0999-qichuang.jsp
+
+
+出现【creation of root certificate was not successfull】没有安装正式问题
+http://blog.sina.com.cn/s/blog_63efaf480102w5xj.html

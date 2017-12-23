@@ -1,0 +1,192 @@
+ 反射，当时经常听他们说，自己也看过一些资料，也可能在设计模式中使用过，但是感觉对它没有一个较深入的了解，这次重新学习了一下，感觉还行吧！
+
+
+           一，先看一下反射的概念：
+
+              主要是指程序可以访问，检测和修改它本身状态或行为的一种能力，并能根据自身行为的状态和结果，调整或修改应用所描述行为的状态和相关的语义。
+
+             反射是java中一种强大的工具，能够使我们很方便的创建灵活的代码，这些代码可以再运行时装配，无需在组件之间进行源代码链接。但是反射使用不当会成本很高！
+
+             看概念很晕的，继续往下看。
+
+ 
+
+      二，反射机制的作用：
+
+              1，反编译：.class-->.java
+
+              2,通过反射机制访问java对象的属性，方法，构造方法等；
+
+             这样好像更容易理解一些，下边我们具体看怎么实现这些功能。
+
+
+      三，在这里先看一下sun为我们提供了那些反射机制中的类：
+
+java.lang.Class;                
+
+java.lang.reflect.Constructor; java.lang.reflect.Field;        
+
+java.lang.reflect.Method;
+
+java.lang.reflect.Modifier;
+
+
+            很多反射中的方法，属性等操作我们可以从这四个类中查询。还是哪句话要学着不断的查询API，那才是我们最好的老师。
+
+
+         四，具体功能实现：
+
+                1，反射机制获取类有三种方法，我们来获取Employee类型
+
+[java] view plain copy
+
+    //第一种方式：  
+    Classc1 = Class.forName("Employee");  
+    //第二种方式：  
+    //java中每个类型都有class 属性.  
+    Classc2 = Employee.class;  
+       
+    //第三种方式：  
+    //java语言中任何一个java对象都有getClass 方法  
+    Employeee = new Employee();  
+    Classc3 = e.getClass(); //c3是运行时类 (e的运行时类是Employee)  
+
+
+ 
+
+    2，创建对象：获取类以后我们来创建它的对象，利用newInstance：
+
+[java] view plain copy
+
+    Class c =Class.forName("Employee");  
+      
+    //创建此Class 对象所表示的类的一个新实例  
+    Objecto = c.newInstance(); //调用了Employee的无参数构造方法.  
+
+
+
+    3,获取属性：分为所有的属性和指定的属性：
+
+      a，先看获取所有的属性的写法：
+
+[java] view plain copy
+
+    //获取整个类  
+                Class c = Class.forName("java.lang.Integer");  
+                  //获取所有的属性?  
+                Field[] fs = c.getDeclaredFields();  
+           
+                       //定义可变长的字符串，用来存储属性  
+                StringBuffer sb = new StringBuffer();  
+                //通过追加的方法，将每个属性拼接到此字符串中  
+                //最外边的public定义  
+                sb.append(Modifier.toString(c.getModifiers()) + " class " + c.getSimpleName() +"{\n");  
+                //里边的每一个属性  
+                for(Field field:fs){  
+                    sb.append("\t");//空格  
+                    sb.append(Modifier.toString(field.getModifiers())+" ");//获得属性的修饰符，例如public，static等等  
+                    sb.append(field.getType().getSimpleName() + " ");//属性的类型的名字  
+                    sb.append(field.getName()+";\n");//属性的名字+回车  
+                }  
+          
+                sb.append("}");  
+          
+                System.out.println(sb);  
+
+
+       b，获取特定的属性，对比着传统的方法来学习：
+
+
+[java] view plain copy
+
+    public static void main(String[] args) throws Exception{  
+                  
+    <span style="white-space:pre;"> </span>//以前的方式：  
+        /* 
+        User u = new User(); 
+        u.age = 12; //set 
+        System.out.println(u.age); //get 
+        */  
+                  
+        //获取类  
+        Class c = Class.forName("User");  
+        //获取id属性  
+        Field idF = c.getDeclaredField("id");  
+        //实例化这个类赋给o  
+        Object o = c.newInstance();  
+        //打破封装  
+        idF.setAccessible(true); //使用反射机制可以打破封装性，导致了java对象的属性不安全。  
+        //给o对象的id属性赋值"110"  
+        idF.set(o, "110"); //set  
+        //get  
+        System.out.println(idF.get(o));  
+    }  
+
+
+     4，获取方法，和构造方法，不再详细描述，只来看一下关键字：
+
+    方法关键字
+    	
+
+    含义
+
+    getDeclaredMethods()
+    	
+
+    获取所有的方法
+
+    getReturnType()
+    	
+
+    获得方法的放回类型
+
+    getParameterTypes()
+    	
+
+    获得方法的传入参数类型
+
+    getDeclaredMethod("方法名",参数类型.class,……)
+    	
+
+    获得特定的方法
+
+    构造方法关键字
+    	
+
+    含义
+
+    getDeclaredConstructors()
+    获取所有的构造方法
+
+    getDeclaredConstructor(参数类型.class,……)	
+
+    获取特定的构造方法
+    父类和父接口
+    含义
+    getSuperclass()	
+
+    获取某类的父类
+getInterfaces()
+    	获取某类实现的接口这样我们就可以获得类的各种内容，进行了反编译。对于JAVA这种先编译再运行的语言来说，反机制可以使代码更加灵活，更加容易实现面向对象。
+  五，反射加配置文件，使我们的程序更加灵活：
+
+             在设计模式学习当中，学习抽象工厂的时候就用到了反射来更加方便的读取数据库链接字符串等，当时不是太理解，就照着抄了。看一下.NET中的反射+配置文件的使用：
+
+             当时用的配置文件是app.config文件，内容是XML格式的，里边填写链接数据库的内容:
+
+[html] view plain copy
+
+          <configuration>  
+    lt;appSettings>  
+    <add     key=""  value=""/>  
+    lt;/appSettings>  
+            </configuration>  
+
+
+ 反射的写法：   
+
+[csharp] view plain copy
+
+    assembly.load("当前程序集的名称").CreateInstance("当前命名空间名称".要实例化的类名);  
+
+          这样的好处是很容易的方便我们变换数据库，例如我们将系统的数据库从SQL Server升级到Oracle，那么我们写两份D层，在配置文件的内容改一下，或者加条件选择一下即可，带来了很大的方便。         当然了，JAVA中其实也是一样，只不过这里的配置文件为.properties,称作属性文件。通过反射读取里边的内容。这样代码是固定的，但是配置文件的内容我们可以改，这样使我们的代码灵活了很多！综上为，JAVA反射的再次学习，灵活的运用它，能够使我们的代码更加灵活，但是它也有它的缺点，就是运用它会使我们的软件的性能降低，复杂度增加，所以还要我们慎重的使用它。

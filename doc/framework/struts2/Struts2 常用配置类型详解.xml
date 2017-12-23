@@ -1,0 +1,43 @@
+
+
+<action name="findById" class="adminFeeShowAction" method="findById">
+    <result name="error">/WEB-INF/pages/error.jsp</result>      
+    <result name="success">/WEB-INF/pages/admin/feeShow/feeShow.jsp</result>            
+</action>
+
+
+<action name="genExcel" class="adminPayLogAction" method="genExcel">
+	<result name="excel" type="stream">
+		<!-- 内容类型，和互联网MIME标准中的规定类型一致 -->
+		<param name="contentType">application/vnd.ms-excel</param>
+		<!-- 
+			contentDisposition 
+			文件下载的处理方式，包括内联(inline)和附件(attachment)两种方式
+			
+			1.如果直接写filename="struts2.txt"，那么默认情况是代表inline，浏览器会尝试自动打开它，等价于这样的写法：inline; filename="struts2.txt"
+			
+			2.而附件方式会弹出文件保存对话框，否则浏览器会尝试直接显示文件。取值为： 
+			attachment;filename="struts2.txt"，表示文件下载的时候保存的名字应为struts2.txt。
+		-->
+		<param name="contentDisposition">attachment;filename="${fileName}.xls"</param>
+		<!-- 下载缓冲区的大小 -->
+		<param name="bufferSize">4096</param>
+		<!-- 		下载文件的来源流，对应着action类中某个类型为Inputstream的属性名，例如取值为inputStream的属性需要编写getInputStream()方法
+			在action中必须存在类型为InputStream的属性，以及对应的get、set方法
+		-->
+		<param name="inputName">excelStream</param>		    
+	</result>           
+</action>
+
+
+<package name="/ad/app/marketChannelAppPaySwitch" extends="json-default" namespace="/ad/app/marketChannelAppPaySwitch">              
+	<action name="findListByCondition" class="marketChannelAppPaySwitchAction" method="findListByCondition">
+		<result name="success" type="json">
+			<!-- 
+				name="root" 固定写法
+				resultMap 需要向页面返回的JSON对象数据
+			-->
+			<param name="root">resultMap</param>
+		</result>             
+	</action>
+</package>

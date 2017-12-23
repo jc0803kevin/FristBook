@@ -1,0 +1,10 @@
+
+https://jingyan.baidu.com/article/676629977ea4bb54d51b84ad.html
+
+
+进入ubuntu，Ctrl + Alt + T弹出来命令终端
+
+
+切换用户到root下， sudo su root
+
+sudo是super user do的简称。su 是switch user的简称

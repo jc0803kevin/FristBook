@@ -1,0 +1,22 @@
+
+
+启动redis出现
+[9440] 13 Dec 12:02:09.766 # Creating Server TCP listening socket *:6379: bind: No such file or directory问题
+
+解决方案如下按顺序输入如下命令就可以连接成功
+
+1. redis-cli.exe
+2. shutdown
+3. exit
+4. redis-server.exe redis.windows.conf
+
+
+
+报错：
+[12116] 10 Dec 10:39:16.588 # HandleServiceCommands: system error caught. error code=1073, message = CreateService failed: unknown error
+原因：系统服务中已经存在
+解决办法：
+先卸载服务再安装：
+redis-server --service-uninstall
+然后在：
+redis-server --service-install redis.windows.conf

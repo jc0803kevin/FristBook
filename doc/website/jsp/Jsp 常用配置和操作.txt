@@ -1,0 +1,3 @@
+
+JSP动作元素<jsp:include>和<jsp:param>的搭配使用
+http://blog.csdn.net/fuyin11/article/details/49707373

@@ -1,0 +1,20 @@
+一. 本机配置
+
+    添加用户
+        git config --global user.name “XX”
+        git config --gloaba user.email “XX@163.com”
+    查看git配置及用户信息
+        git config --list
+    生成SSH秘钥(2种方式:1.git GUI图形界面化操作; 2.git命令,即以下流程)
+        1) 查看是否有秘钥,有则备份然后删除文件夹【C:\Users\Administrator\.ssh】
+        cd ~/.ssh
+        ls
+        2) 正式生成,输入指令再 按三次回车,也就是第三次回车指纹密码输入可以为空
+        ssh-keygen -t rsa -C “邮箱”
+        3) 添加私钥到 ssh(如果配置过指纹密码就要输入验证)
+        ssh -add id_rsa
+    进入计算机系统用户文件夹,找到id_rsa.pub,打开复制到github的setting的SSH keys当中(
+        该网站服务器可以添加多个ssh key公钥)
+    测试本机是否有访问GitHub的权限
+        ssh git@github.com
+

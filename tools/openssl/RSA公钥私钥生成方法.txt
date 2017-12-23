@@ -1,0 +1,17 @@
+公私钥生成
+1. 【openssl genrsa -out rsa_private_key_2048.pem 2048】 #生成rsa私钥，以X509编码，指定生成的密钥的位数: 2048（注：该步骤生成的私钥只为供第二步使用，并无实际用处）
+
+2. 【openssl pkcs8 -topk8 -in rsa_private_key_2048.pem -out pkcs8_rsa_private_key_2048.pem -nocrypt】
+
+#将上一步生成的rsa私钥转换成PKCS#8编码（注：该步骤生成的私钥构成实际密钥对的私钥）
+
+3. 【openssl rsa -in rsa_private_key_2048.pem -out rsa_public_key_2048.pem -pubout】 #导出rsa公钥，以X509编码（注：该步骤生成的公钥构成实际密钥对的公钥）
+/sdk/src/main/webapp/d3api/036-qianyou.jsp
+
+
+
+genrsa -out rsa_private_key.pem 1024
+
+pkcs8 -topk8 -in rsa_private_key.pem -out pkcs8_rsa_private_key.pem -nocrypt
+
+rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem

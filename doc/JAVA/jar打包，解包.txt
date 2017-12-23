@@ -1,0 +1,7 @@
+jar cvf xxx.jar(jar文件名) META-INF/MANIFEST.MF(MANIFEST文件路径) *(表示把该目录下所有class加入jar包)
+
+jar cvf struts2-core-2.5.10.1.jar META-INF/MANIFEST.MF *
+
+
+
+wget https://static.heepay.com/Pay/V1/MSite/Js/hy.mobile/zepto.min.js --no-check-certificate
