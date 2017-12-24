@@ -2,7 +2,7 @@
  * 钱包充值
  * @create by 2017-11-24
  * @author kevin
- * 
+ * @description ssh 
  */
 
 var Recharge = (function(){
