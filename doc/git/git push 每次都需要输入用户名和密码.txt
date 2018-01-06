@@ -1,0 +1,33 @@
+git push 每次都需要输入用户名和密码
+
+原因，解决方案
+每次都需要输入用户名和密码是因为你采用的是 https 方式提交代码， 如果采用的是 ssh 方式只需要在版本库中添加用户的 sha 的key就可以实现提交时无需输入用户名和密码。
+
+
+1.如果你的版本库已经用https 方式创建好了，那么就需要先删除原来的提交方式。在终端执行以下指令：
+
+
+git remote rm origin
+git remote add origin git@github.com:(用户名)/版本库名
+例如：
+https: https://github.com/用户名/GitTest.git
+ssh: git@github.com:用户名/GitTest.git
+
+
+2.修改remote方式之后是不能直接推送修改的，因为没有权限
+
+所以这时你需要在本地创建自己的RSA的key。如下：
+ssh-keygen -t rsa -C "用户名"
+
+
+然后系统会问你保存路径等东西，我直接enter跳过了。
+然后系统会生成一些东西，最主要的是告诉你，你的可以在：
+Your public key has been saved in C:\Users\Administrator\.ssh/id_rsa.pub
+
+3.然后将生成的rsa 的key添加到版本库中即可，方法：打开自己的版本库，点击右边的 Settings 进入配置页。然后点击左边导航栏的： Deploy keys 进入添加key页面然后点击： Add deploy keys ，将自己的内容输入进去就可以了。这样就完成了。
+
+
+
+4.最后就可以推送修改了
+
+git push -u origin master

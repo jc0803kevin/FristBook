@@ -1,0 +1,25 @@
+
+
+
+2：在项目开发时，pom.xml中<packaging>设置为war，鼠标点击pom.xml,右键，Run As选择 Maven clean，清理生成的war包，然后选择Maven install，重新加载（先clean,是防止修改的程序没有生效。）
+
+3：项目开发结束后，把pom.xml中<packaging>设置为jar。重复第二步，会在target下，看到生成的AllUtil-0.0.1-SNAPSHOT.jar包。
+
+　　（1）若项目为普通项目，可直接把该jar包放入lib下，导入项目中即可使用。
+
+　　（2）若项目为maven项目，则需要把jar包放入本地的maven仓库：
+
+当项目运行Maveninstall时，maven自动会把jar包自动保存至本地仓库（本地为*\.m2\repository\com\kevin）。
+
+
+
+
+当新项目需要用到时只需要在pom.xml的<dependencies></dependencies>中配置如下，即可使用
+
+　　<dependency>
+        <groupId>com.kevin</groupId>
+        <artifactId>AllUtil</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+注意：当完成上面的操作，打开项目中 Maven Dependencies，发现导出的jar包呈现文件夹模样。如下图所示，此原因是因为AllUtil项目还为可运行项目，把AllUtil项目关闭后，jar包正常显示，项目也能正常使用。

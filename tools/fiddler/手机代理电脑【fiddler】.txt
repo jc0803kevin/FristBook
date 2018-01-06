@@ -15,3 +15,7 @@ http://localhost:8080/sdk/d3api/0999-qichuang.jsp
 
 出现【creation of root certificate was not successfull】没有安装正式问题
 http://blog.sina.com.cn/s/blog_63efaf480102w5xj.html
+
+
+出现【creation of root certificate was not successfull】没有安装正式问题
+http://docs.telerik.com/fiddler/configure-fiddler/tasks/decrypthttps

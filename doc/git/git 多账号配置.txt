@@ -1,0 +1,10 @@
+
+1.生成SSH秘钥对
+
+ssh-keygen -t rsa -C "youremail@yourcompany.com" -f ~/.ssh/id_rsa_1
+
+接着按两个回车，最后在~/.ssh目录会生成id_rsa_1和id_rsa_1.pub两个文件，将公钥id_rsa_1.pub里面的内容全部复制粘贴到你账号服务器上的SSH配置中
+
+注意：
+	这里youremail@yourcompany.com是邮箱，即你第一个账户需要的邮箱，也可以是用户名
+	~/.ssh 在windows中一般是 C:\Users\当前系统用户\.ssh

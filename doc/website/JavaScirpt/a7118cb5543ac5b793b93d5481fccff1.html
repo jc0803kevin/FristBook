@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <base href="http://naotu.baidu.com/"/>
+    <meta name="keyword" content="kityminder,脑图,思维导图,kity,svg,minder,百度,fex,前端,在线">
+    <meta name="description" content="百度脑图，便捷的脑图编辑工具。让您在线上直接创建、保存并分享你的思路。">
+    <title>百度脑图－便捷的思维工具</title>
+
+    <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+    <link rel="stylesheet" href="public/dist/kityminder.online.min.css?_=dd2447233c92274d"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?0703917f224067c887f3664479a03887";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body ng-app="kityminder" ng-controller="viewerController" class="view" ng-init="userLogin=false">
+<header>
+    <more-service></more-service>
+    <file-menu ng-if="userLogin"></file-menu>
+    <div class="filename-wrap">
+        <span class="filename" ng-bind="file.fileName"></span>
+    </div>
+    <user-info></user-info>
+</header>
+<kityminder-viewer on-init="initViewer(editor, minder)"></kityminder-viewer>
+<main-menu></main-menu>
+<input id="km-csrf" type="hidden" name="csrf_token" value="bd5c1b73de970e0b6fc6e8a59a6ecf74" />
+</body>
+
+<script src="public/dist/kityminder.online.min.js?_=2dbf34d4d0334cf8"></script>
+
+<script>
+    angular.module('kityminder')
+        .controller('viewerController', ['$scope', 'file', 'valueTransfer', function($scope, file, valueTransfer) {
+
+            var fileGuid = getFileGuid();
+
+            $scope.initViewer = function(editor, minder) {
+                window.editor = editor;
+                window.minder = minder;
+            };
+
+            $scope.file = new file({
+                fileGuid: fileGuid
+            });
+
+            $scope.file.get().then(function(data) {
+                if (data) {
+                    minder.importJson(JSON.parse(data));
+                    minder.disable();
+                    minder.execCommand('camera');
+                    minder.execCommand('hand');
+                }
+            });
+
+            valueTransfer.role = 'viewer';
+            var userLogin = function() {
+                return valueTransfer.userLogin;
+            };
+
+            $scope.$watch(userLogin, function(newVal, oldVal) {
+                $scope.userLogin = newVal;
+            });
+
+            function getFileGuid() {
+                return window.location.href.replace(/\S*\/file\/([a-f\d]{32})\S*/, '$1');
+            }
+
+        }]);
+
+</script>
+
+</html>
